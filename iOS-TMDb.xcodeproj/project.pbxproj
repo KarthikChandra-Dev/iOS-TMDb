@@ -17,6 +17,8 @@
 		9E5B8B2726F7E97200D27301 /* iOS_TMDbUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5B8B2626F7E97200D27301 /* iOS_TMDbUITests.swift */; };
 		9E5B8B3C26F8040900D27301 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5B8B3B26F8040900D27301 /* Meal.swift */; };
 		9E5B8B4126F8060900D27301 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5B8B4026F8060900D27301 /* Category.swift */; };
+		9E5B8B4726F8114A00D27301 /* Requestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5B8B4626F8114A00D27301 /* Requestor.swift */; };
+		9E5B8B4F26F8148600D27301 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5B8B4E26F8148600D27301 /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		9E5B8B2826F7E97200D27301 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E5B8B3B26F8040900D27301 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		9E5B8B4026F8060900D27301 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		9E5B8B4626F8114A00D27301 /* Requestor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestor.swift; sourceTree = "<group>"; };
+		9E5B8B4E26F8148600D27301 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 			children = (
 				9E5B8B0326F7E96E00D27301 /* iOS-TMDb */,
 				9E5B8B3A26F803DA00D27301 /* Models */,
+				9E5B8B4526F8111700D27301 /* Service */,
 				9E5B8B1A26F7E97200D27301 /* iOS-TMDbTests */,
 				9E5B8B2526F7E97200D27301 /* iOS-TMDbUITests */,
 				9E5B8B0226F7E96E00D27301 /* Products */,
@@ -136,10 +141,19 @@
 		9E5B8B3A26F803DA00D27301 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9E5B8B3B26F8040900D27301 /* Meal.swift */,
 				9E5B8B4026F8060900D27301 /* Category.swift */,
+				9E5B8B3B26F8040900D27301 /* Meal.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9E5B8B4526F8111700D27301 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				9E5B8B4626F8114A00D27301 /* Requestor.swift */,
+				9E5B8B4E26F8148600D27301 /* Reachability.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,8 +286,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E5B8B4F26F8148600D27301 /* Reachability.swift in Sources */,
 				9E5B8B3C26F8040900D27301 /* Meal.swift in Sources */,
 				9E5B8B4126F8060900D27301 /* Category.swift in Sources */,
+				9E5B8B4726F8114A00D27301 /* Requestor.swift in Sources */,
 				9E5B8B0926F7E96E00D27301 /* ViewController.swift in Sources */,
 				9E5B8B0526F7E96E00D27301 /* AppDelegate.swift in Sources */,
 				9E5B8B0726F7E96E00D27301 /* SceneDelegate.swift in Sources */,
