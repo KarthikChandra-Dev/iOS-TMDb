@@ -25,6 +25,12 @@ class Requestor {
     private init() { }
     
     func requestCategoriesInfo(completion: @escaping CategoriesCompletionBlock) {
+        
+        if let categoriesObj: Categories = Cache.shared.categories(for: "categories") {
+            completion(categoriesObj.list, nil)
+            return
+        }
+          
         let reqUrl = "https://www.themealdb.com/api/json/v1/1/categories.php"
         request(withUrlString: reqUrl){ (data, error) in
             if error != nil {
@@ -34,9 +40,9 @@ class Requestor {
                 completion(nil, .failure(description: "Data is nil"))
                 return
             }
-            
             do {
                 let decodedData = try JSONDecoder().decode(Categories.self, from: data)
+                Cache.shared.add(Categories: decodedData, for: "categories")
                 completion(decodedData.list, nil)
             } catch {
                 completion(nil, .parsing(description: error.localizedDescription))
@@ -45,6 +51,12 @@ class Requestor {
     }
     
     func requestCategoryMealsInfo(forCategory category: String, completion: @escaping CategoryCompletionBlock) {
+        
+        if let mealObj: [CategoryMeal] = Cache.shared.categoryMeals(for: category) {
+            completion(mealObj, nil)
+            return
+        }
+        
         let reqUrl = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + category
         request(withUrlString: reqUrl){ (data, error) in
             if error != nil {
@@ -54,10 +66,11 @@ class Requestor {
                 completion(nil, .failure(description: "Data is nil"))
                 return
             }
-            
             do {
                 let decodedData = try JSONDecoder().decode(CategoryMealRoot.self, from: data)
-                completion(decodedData.list, nil)
+                let received = decodedData.list
+                Cache.shared.add(CategoryMeals: received, for: category)
+                completion(received, nil)
             } catch {
                 completion(nil, .parsing(description: error.localizedDescription))
             }
@@ -65,6 +78,12 @@ class Requestor {
     }
     
     func requestMealInfo(for id: String, completion: @escaping MealCompletionBlock) {
+        
+        if let mealObj: Meal = Cache.shared.meal(for: id) {
+            completion(mealObj, nil)
+            return
+        }
+        
         let reqUrl = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + id
         request(withUrlString: reqUrl){ (data, error) in
             if error != nil {
@@ -74,10 +93,14 @@ class Requestor {
                 completion(nil, .failure(description: "Data is nil"))
                 return
             }
-            
             do {
                 let decodedData = try JSONDecoder().decode(MealsRoot.self, from: data)
-                completion(decodedData.list.first, nil)
+                guard let received = decodedData.list.first else {
+                    completion(nil, .failure(description: "Data is Invalid"))
+                    return
+                }
+                Cache.shared.add(Meal: received, for: received.id)
+                completion(received, nil)
             } catch {
                 completion(nil, .parsing(description: error.localizedDescription))
             }

@@ -11,6 +11,11 @@ import Foundation
 struct Ingredient {
     let name: String
     let measurement: String
+    
+    func getIngredientDetail() -> String {
+        let detail = name + " : " + measurement
+        return detail
+    }
 }
 
 // MARK: - Meal
@@ -47,10 +52,14 @@ struct Meal: Decodable {
         })
         for key in totalIngredients {
             let strKey = key.stringValue
-            let decodedIngredient = try container.decode(String.self, forKey: CodingKeys(stringValue: strKey)!)
-            let decodedMeasure = try container.decode(String.self, forKey: CodingKeys(stringValue: "strMeasure" + String(strKey.dropFirst("strIngredient".count)))!)
-            if !(decodedIngredient.trimmingCharacters(in: CharacterSet(charactersIn: " ")).isEmpty) {
-                self.ingredients.append(Ingredient(name: decodedIngredient, measurement: decodedMeasure))
+            let decodedIngredient = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: strKey)!)
+            if let ingredientValue = decodedIngredient {
+                let decodedMeasure = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strMeasure" + String(strKey.dropFirst("strIngredient".count)))!)
+                if let measureValue = decodedMeasure {
+                    if !(ingredientValue.trimmingCharacters(in: CharacterSet(charactersIn: " "))).isEmpty && !(measureValue.trimmingCharacters(in: CharacterSet(charactersIn: " "))).isEmpty{
+                        self.ingredients.append(Ingredient(name: ingredientValue, measurement: measureValue))
+                    }
+                }
             }
         }
     }
